@@ -11,14 +11,13 @@ class LedWindow(QMainWindow,LED):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-
         self.resetHeaders()
         self.selected_column = None
         self.table.horizontalHeader().setContextMenuPolicy(Qt.CustomContextMenu)
         self.table.horizontalHeader().customContextMenuRequested.connect(self.showContextMenu)
         self.split_Part.clicked.connect(self.PartRandom)
         self.SetHeader_btn.clicked.connect(self.SetHeader)
-        self.header_order = ['位号', 'X坐标', 'Y坐标', 'R角度', '站位']
+        self.header_order = ['位号', 'X坐标', 'Y坐标', 'R角度']
         self.input_dialog = QInputDialog(self)
         self.input_dialog.setInputMode(QInputDialog.InputMode.IntInput)
         self.input_dialog.setIntRange(2, 65)
@@ -39,6 +38,7 @@ class LedWindow(QMainWindow,LED):
             for columnIndex, item in enumerate(row):
                 self.table.setItem(rowIndex, columnIndex, QTableWidgetItem(str(item)))
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.resetHeaders()
     def showContextMenu(self,pos):
         header=self.table.horizontalHeader()
         index=header.logicalIndexAt(pos)
@@ -69,13 +69,11 @@ class LedWindow(QMainWindow,LED):
         action_X = self.context_menu.addAction('X坐标')
         action_Y = self.context_menu.addAction('Y坐标')
         action_R = self.context_menu.addAction('R角度')
-        action_Part = self.context_menu.addAction('站位')
         action_Reset = self.context_menu.addAction('Reset')
         action_Ref.triggered.connect(lambda: self.action_Triggered(action_Ref))
         action_X.triggered.connect(lambda: self.action_Triggered(action_X))
         action_Y.triggered.connect(lambda: self.action_Triggered(action_Y))
         action_R.triggered.connect(lambda: self.action_Triggered(action_R))
-        action_Part.triggered.connect(lambda: self.action_Triggered(action_Part))
         action_Reset.triggered.connect(self.resetHeaders)
     def exportTableData(self):
         data_list = []
@@ -108,29 +106,42 @@ class LedWindow(QMainWindow,LED):
             input_value=self.input_dialog.intValue()
         sorted_lst_x = sorted(self.RandomData(), key=lambda x: x[1])  # 根据X坐标进行排序
         sorted_lst_y = sorted(sorted_lst_x, key=lambda x: x[2])  # 根据Y坐标进行排序
+        lst = self.order_list(input_value, 0)
         min_list = min(sorted_lst_y, key=lambda x: x[2])
-        lst=self.order_list(input_value)
         min_value = min_list[2]  # 获取子列表中的Y坐标的最小值
         index_one=0
         index_two=0
         index_three=0
         index_four=0
-        while index_one != len(sorted_lst_y):
-            if sorted_lst_y[index_one][2] == min_value:
-                sorted_lst_y[index_one].append(lst[index_two])
-                index_one += 1
-                index_two = (index_two + 1) % len(lst)
-            elif sorted_lst_y[index_one][2] > sorted_lst_y[index_one - 1][2]:
-                if index_three < len(lst) - 1:
-                    index_three += 1
+        while index_two != len(sorted_lst_y):
+            if sorted_lst_y[index_two][2] == min_value:
+                sorted_lst_y[index_two].append(lst[index_three])
+                index_two += 1
+                index_three = (index_three + 1) % len(lst)
+            elif sorted_lst_y[index_two][2] > sorted_lst_y[index_two - 1][2]:
+                if index_one < len(lst) - 1:
+                    index_one += 1
                 else:
-                    index_three = 0
-                lst = self.order_list(input_value,index_three)
-                sorted_lst_y[index_one].append(lst[index_four])
-                index_one += 1
+                    index_one = 0
+                lst = self.order_list(input_value,index_one)
+                index_four=0
+                sorted_lst_y[index_two].append(lst[index_four])
+                index_two += 1
                 index_four= (index_four + 1) % len(lst)
+            elif sorted_lst_y[index_two][2] == sorted_lst_y[index_two-1][2]:
+                sorted_lst_y[index_two].append(lst[index_four])
+                index_two += 1
+                index_four = (index_four + 1) % len(lst)
             else:
                 continue
+        new_column_count=self.table.columnCount()
+        self.table.setColumnCount(new_column_count + 1)
+        headers = [self.table.horizontalHeaderItem(i).text() for i in range(new_column_count)]
+        headers.append('插花序列')
+        self.table.setHorizontalHeaderLabels(headers)
+        for rowIndex, row in enumerate(sorted_lst_y):  # 遍历数据
+            for columnIndex, item in enumerate(row):  # 遍历数据
+                self.table.setItem(rowIndex, columnIndex, QTableWidgetItem(str(item)))
         print(sorted_lst_y)
     def order_list(self,input_value,sort_index=0):
         int_list=[]
@@ -174,11 +185,10 @@ class LedWindow(QMainWindow,LED):
         columns_to_delete=[]
         for i in range(self.table.columnCount()):
             header_item=self.table.horizontalHeaderItem(i)
-            if header_item is not None:
+            if header_item is not None and  header_item.text() in self.header_order:
                 header_texts.append(header_item.text())
             else:
                 columns_to_delete.append(i)
-
         if set(header_texts) == set(self.header_order):
             for col_index in columns_to_delete:
                 self.table.removeColumn(col_index)
