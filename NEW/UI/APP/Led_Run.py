@@ -142,30 +142,32 @@ class LedWindow(QMainWindow,LED):
         for rowIndex, row in enumerate(sorted_lst_y):  # 遍历数据
             for columnIndex, item in enumerate(row):  # 遍历数据
                 self.table.setItem(rowIndex, columnIndex, QTableWidgetItem(str(item)))
-        print(sorted_lst_y)
+
     def order_list(self,input_value,sort_index=0):
-        int_list=[]
         if input_value == 2:
+            int_list = []
             order_list=[1,2]
-            for item in range(order_list[sort_index],3):
-                int_list.append(item)
-            for item_ in range(1,order_list[sort_index]):
-                int_list.append(item_)
+            for ZW1 in range(order_list[sort_index],3):
+                int_list.append(ZW1)
+            for ZW2 in range(1,order_list[sort_index]):
+                int_list.append(ZW2)
             return int_list
         elif input_value == 48:
+            int_list = []
             order_list=[1, 37, 6, 44, 15, 27, 22, 32, 12, 41, 5, 48, 11, 26, 19, 31, 23, 38, 4, 33, 16, 45, 10, 42,
                         25, 13,30,20,39, 3, 46, 8, 36, 17, 29, 24, 35, 2, 43, 7, 47, 14, 28, 9, 40, 21, 34, 18]
-            for item in range(order_list[sort_index],49):
-                int_list.append(item)
-            for item_ in range(1,order_list[sort_index]):
-                int_list.append(item_)
+            for ZW1 in range(order_list[sort_index],49):
+                int_list.append(ZW1)
+            for ZW2 in range(1,order_list[sort_index]):
+                int_list.append(ZW2)
             return int_list
         else:
-            order_list=[1] + random.sample(range(2, input_value + 1), input_value - 1)
-            for item in range(order_list[sort_index],input_value-1):
-                int_list.append(item)
-            for item_ in range(1,order_list[sort_index]):
-                int_list.append(item_)
+            int_list = []
+            order_list=[1] + random.sample(range(2, input_value + 1),input_value - 1)
+            for ZW1 in range(order_list[sort_index],input_value + 1):
+                int_list.append(ZW1)
+            for ZW2 in range(1,order_list[sort_index]):
+                int_list.append(ZW2)
             return int_list
     def RandomData(self):
         data_list = []
