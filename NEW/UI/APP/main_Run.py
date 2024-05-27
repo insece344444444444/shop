@@ -1,7 +1,5 @@
 from PySide6.QtWidgets import *
 import sys
-
-import NEW.UI.APP.Led_Run
 from NEW.UI.UIC.LOGIN import Ui_Form as Main_Ui
 from qt_material import apply_stylesheet
 from  NEW.UI.APP.Led_Run import LedWindow

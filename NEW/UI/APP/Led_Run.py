@@ -3,30 +3,48 @@ import random
 from PySide6.QtCore import *
 from PySide6.QtWidgets import *
 from PySide6.QtGui import *
-import sys
-from qt_material import apply_stylesheet
 from NEW.UI.UIC.LED import Ui_MainWindow as LED
 
 class LedWindow(QMainWindow,LED):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+
         self.resetHeaders()
+
         self.selected_column = None
+        self.header_order = ['位号', 'X坐标', 'Y坐标', 'R角度']
+
         self.table.horizontalHeader().setContextMenuPolicy(Qt.CustomContextMenu)
         self.table.horizontalHeader().customContextMenuRequested.connect(self.showContextMenu)
+
         self.split_Part.clicked.connect(self.PartRandom)
+        self.split_Part.setEnabled(False)
         self.SetHeader_btn.clicked.connect(self.SetHeader)
-        self.header_order = ['位号', 'X坐标', 'Y坐标', 'R角度']
+
         self.input_dialog = QInputDialog(self)
         self.input_dialog.setInputMode(QInputDialog.InputMode.IntInput)
         self.input_dialog.setIntRange(2, 65)
         self.input_dialog.setIntValue(2)
-        self.input_dialog.setLabelText('请输入需要插花的数量')
+        self.input_dialog.setLabelText('请输入需要打散的站位数量')
         self.input_dialog.setWindowTitle('LED插花')
         self.input_dialog.setOkButtonText('确定')
         self.input_dialog.setCancelButtonText('取消')
         self.input_dialog.setWindowModality(Qt.WindowModality.ApplicationModal)
+
+    def context(self):
+        self.context_menu = QMenu(self)
+        self.action_Ref = self.context_menu.addAction('位号')
+        self.action_X = self.context_menu.addAction('X坐标')
+        self.action_Y = self.context_menu.addAction('Y坐标')
+        self.action_R = self.context_menu.addAction('R角度')
+        self.action_Reset = self.context_menu.addAction('Reset')
+        self.action_Ref.triggered.connect(lambda: self.action_Triggered(self.action_Ref))
+        self.action_X.triggered.connect(lambda: self.action_Triggered(self.action_X))
+        self.action_Y.triggered.connect(lambda: self.action_Triggered(self.action_Y))
+        self.action_R.triggered.connect(lambda: self.action_Triggered(self.action_R))
+        self.action_Reset.triggered.connect(self.resetHeaders)
+
     def addTableData(self,table_data):
         self.table.clearContents()
         num_rows = table_data.shape[0]
@@ -40,19 +58,28 @@ class LedWindow(QMainWindow,LED):
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.resetHeaders()
     def showContextMenu(self,pos):
+        if not hasattr(self,'context_menu'):
+            self.context()
         header=self.table.horizontalHeader()
         index=header.logicalIndexAt(pos)
-        if self.selected_column is not None and self.selected_column != index:
-            for row in range(self.table.rowCount()):
-                item=self.table.item(row,self.selected_column)
-                if item:
-                    item.setSelected(False)
-        self.selected_column=index
-        for row in range(self.table.rowCount()):
-            item=self.table.item(row,index)
-            if item:
-                item.setSelected(True)
+        if index != self.selected_column:
+            self.clearColumnHighlight()
+            self.selected_column=index
+            self.highlightColumn(index)
         self.context_menu.exec(self.table.mapToGlobal(pos))
+
+    def highlightColumn(self,index):
+        for i in range(self.table.rowCount()):
+            item=self.table.item(i,index)
+            if item:
+                item.setBackground(Qt.red)
+
+    def clearColumnHighlight(self):
+        if self.selected_column is not None:
+            for i in range(self.table.rowCount()):
+                item=self.table.item(i,self.selected_column)
+                if item:
+                    item.setBackground(Qt.white)
     def action_Triggered(self,tiggered):
         if self.selected_column is not None:
             new_header_item=QTableWidgetItem(tiggered.text())
@@ -64,17 +91,8 @@ class LedWindow(QMainWindow,LED):
         for i in range(self.table.columnCount()):
             item=QTableWidgetItem(f"{i+1}")
             self.table.setHorizontalHeaderItem(i,item)
-        self.context_menu = QMenu(self)
-        action_Ref = self.context_menu.addAction('位号')
-        action_X = self.context_menu.addAction('X坐标')
-        action_Y = self.context_menu.addAction('Y坐标')
-        action_R = self.context_menu.addAction('R角度')
-        action_Reset = self.context_menu.addAction('Reset')
-        action_Ref.triggered.connect(lambda: self.action_Triggered(action_Ref))
-        action_X.triggered.connect(lambda: self.action_Triggered(action_X))
-        action_Y.triggered.connect(lambda: self.action_Triggered(action_Y))
-        action_R.triggered.connect(lambda: self.action_Triggered(action_R))
-        action_Reset.triggered.connect(self.resetHeaders)
+        self.context()
+
     def exportTableData(self):
         data_list = []
         for row in range(self.table.rowCount()):#遍历表格的行
@@ -101,47 +119,49 @@ class LedWindow(QMainWindow,LED):
         QMessageBox.information(self, '提示', '导出成功')
         self.close()
     def PartRandom(self):
-        self.input_dialog.show()
-        if self.input_dialog.exec()==QInputDialog.DialogCode.Accepted:
-            input_value=self.input_dialog.intValue()
-        sorted_lst_x = sorted(self.RandomData(), key=lambda x: x[1])  # 根据X坐标进行排序
-        sorted_lst_y = sorted(sorted_lst_x, key=lambda x: x[2])  # 根据Y坐标进行排序
-        lst = self.order_list(input_value, 0)
-        min_list = min(sorted_lst_y, key=lambda x: x[2])
-        min_value = min_list[2]  # 获取子列表中的Y坐标的最小值
-        index_one=0
-        index_two=0
-        index_three=0
-        index_four=0
-        while index_two != len(sorted_lst_y):
-            if sorted_lst_y[index_two][2] == min_value:
-                sorted_lst_y[index_two].append(lst[index_three])
-                index_two += 1
-                index_three = (index_three + 1) % len(lst)
-            elif sorted_lst_y[index_two][2] > sorted_lst_y[index_two - 1][2]:
-                if index_one < len(lst) - 1:
-                    index_one += 1
+        if hasattr(self,'context_menu'):
+            self.input_dialog.show()
+            if self.input_dialog.exec()==QInputDialog.DialogCode.Accepted:
+                input_value=self.input_dialog.intValue()
+            sorted_lst_x = sorted(self.RandomData(), key=lambda x: x[1])  # 根据X坐标进行排序
+            sorted_lst_y = sorted(sorted_lst_x, key=lambda x: x[2])  # 根据Y坐标进行排序
+            lst = self.order_list(input_value, 0)
+            min_list = min(sorted_lst_y, key=lambda x: x[2])
+            min_value = min_list[2]  # 获取子列表中的Y坐标的最小值
+            index_one=0
+            index_two=0
+            index_three=0
+            index_four=0
+            while index_two != len(sorted_lst_y):
+                if sorted_lst_y[index_two][2] == min_value:
+                    sorted_lst_y[index_two].append(lst[index_three])
+                    index_two += 1
+                    index_three = (index_three + 1) % len(lst)
+                elif sorted_lst_y[index_two][2] > sorted_lst_y[index_two - 1][2]:
+                    if index_one < len(lst) - 1:
+                        index_one += 1
+                    else:
+                        index_one = 0
+                    lst = self.order_list(input_value,index_one)
+                    index_four=0
+                    sorted_lst_y[index_two].append(lst[index_four])
+                    index_two += 1
+                    index_four= (index_four + 1) % len(lst)
+                elif sorted_lst_y[index_two][2] == sorted_lst_y[index_two-1][2]:
+                    sorted_lst_y[index_two].append(lst[index_four])
+                    index_two += 1
+                    index_four = (index_four + 1) % len(lst)
                 else:
-                    index_one = 0
-                lst = self.order_list(input_value,index_one)
-                index_four=0
-                sorted_lst_y[index_two].append(lst[index_four])
-                index_two += 1
-                index_four= (index_four + 1) % len(lst)
-            elif sorted_lst_y[index_two][2] == sorted_lst_y[index_two-1][2]:
-                sorted_lst_y[index_two].append(lst[index_four])
-                index_two += 1
-                index_four = (index_four + 1) % len(lst)
-            else:
-                continue
-        new_column_count=self.table.columnCount()
-        self.table.setColumnCount(new_column_count + 1)
-        headers = [self.table.horizontalHeaderItem(i).text() for i in range(new_column_count)]
-        headers.append('插花序列')
-        self.table.setHorizontalHeaderLabels(headers)
-        for rowIndex, row in enumerate(sorted_lst_y):  # 遍历数据
-            for columnIndex, item in enumerate(row):  # 遍历数据
-                self.table.setItem(rowIndex, columnIndex, QTableWidgetItem(str(item)))
+                    continue
+            new_column_count=self.table.columnCount()
+            self.table.setColumnCount(new_column_count + 1)
+            headers = [self.table.horizontalHeaderItem(i).text() for i in range(new_column_count)]
+            headers.append('插花序列')
+            self.table.setHorizontalHeaderLabels(headers)
+            for rowIndex, row in enumerate(sorted_lst_y):  # 遍历数据
+                for columnIndex, item in enumerate(row):  # 遍历数据
+                    self.table.setItem(rowIndex, columnIndex, QTableWidgetItem(str(item)))
+            self.split_Part.setEnabled(False)
 
     def order_list(self,input_value,sort_index=0):
         if input_value == 2:
@@ -207,13 +227,6 @@ class LedWindow(QMainWindow,LED):
                 for row,data in enumerate(column_data):
                     item=QTableWidgetItem(data)
                     self.table.setItem(row,col,item)
+            self.split_Part.setEnabled(True)
         else:
-            QMessageBox.information(self, '提示', '表头栏未定义')
-
-
-if __name__ == "__main__":
-    app=QApplication(sys.argv)
-    apply_stylesheet(app, theme='light_pink.xml')
-    win=LedWindow()
-    win.show()
-    sys.exit(app.exec())
+            QMessageBox.information(self, '提示', '表头栏未定义完全或坐标未导入\n请检查')
