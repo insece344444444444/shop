@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>870</width>
+    <height>682</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>SMT程序格式转换</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLabel" name="TB_show">
+        <property name="text">
+         <string>T/B显示</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="TB_combobox">
+        <property name="currentText">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item row="2" column="0">
+     <widget class="QTableWidget" name="table"/>
+    </item>
+    <item row="2" column="1">
+     <layout class="QHBoxLayout" name="horizontalLayout_3"/>
+    </item>
+    <item row="1" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QPushButton" name="Place_Data">
+        <property name="text">
+         <string>贴装数据</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="Pcbsize_Data">
+        <property name="text">
+         <string>基板数据</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="Part_Data">
+        <property name="text">
+         <string>元件数据</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="PartTable_Data">
+        <property name="text">
+         <string>料站数据</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>870</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="File">
+    <property name="title">
+     <string>文件</string>
+    </property>
+    <addaction name="Open"/>
+    <addaction name="Save"/>
+    <addaction name="Save_As"/>
+    <addaction name="Exit"/>
+   </widget>
+   <widget class="QMenu" name="Data_Import">
+    <property name="title">
+     <string>数据导入</string>
+    </property>
+    <addaction name="import_CAD"/>
+    <addaction name="import_BOM"/>
+    <addaction name="separator"/>
+    <addaction name="import_CAD_BOM"/>
+    <addaction name="import_GC_CSV"/>
+   </widget>
+   <widget class="QMenu" name="reading_program">
+    <property name="title">
+     <string>读取程序</string>
+    </property>
+    <addaction name="FUJI_R"/>
+    <addaction name="separator"/>
+    <addaction name="Yamaha_R"/>
+    <addaction name="separator"/>
+    <addaction name="JUKI_R"/>
+    <addaction name="separator"/>
+    <addaction name="GXH_R"/>
+    <addaction name="separator"/>
+    <addaction name="Samsung_R"/>
+    <addaction name="separator"/>
+    <addaction name="Panasonic_R"/>
+    <addaction name="separator"/>
+    <addaction name="NCMaater_R"/>
+   </widget>
+   <widget class="QMenu" name="export_Fle">
+    <property name="title">
+     <string>输出文件</string>
+    </property>
+    <addaction name="Fuji_Flexa_E"/>
+    <addaction name="separator"/>
+    <addaction name="YAMAHA_E"/>
+    <addaction name="separator"/>
+    <addaction name="Samsung_E"/>
+    <addaction name="separator"/>
+    <addaction name="JUKI_E"/>
+    <addaction name="separator"/>
+    <addaction name="Panasonnic_E"/>
+    <addaction name="separator"/>
+    <addaction name="GXH_E"/>
+    <addaction name="separator"/>
+    <addaction name="SONY_E"/>
+    <addaction name="separator"/>
+    <addaction name="RongDe_E"/>
+    <addaction name="separator"/>
+    <addaction name="HanChengTong_E"/>
+    <addaction name="separator"/>
+    <addaction name="COORD10_E"/>
+    <addaction name="separator"/>
+    <addaction name="export_CAD"/>
+    <addaction name="export_CADBOM"/>
+    <addaction name="export_place_part_data"/>
+   </widget>
+   <widget class="QMenu" name="Transmit_Coordinate">
+    <property name="title">
+     <string>发送坐标</string>
+    </property>
+    <addaction name="Send_GC"/>
+   </widget>
+   <addaction name="File"/>
+   <addaction name="Data_Import"/>
+   <addaction name="reading_program"/>
+   <addaction name="export_Fle"/>
+   <addaction name="Transmit_Coordinate"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="Open">
+   <property name="text">
+    <string>打开</string>
+   </property>
+  </action>
+  <action name="Save">
+   <property name="text">
+    <string>保存</string>
+   </property>
+  </action>
+  <action name="Save_As">
+   <property name="text">
+    <string>另存为</string>
+   </property>
+  </action>
+  <action name="Exit">
+   <property name="text">
+    <string>关闭</string>
+   </property>
+  </action>
+  <action name="import_CAD">
+   <property name="text">
+    <string>导入_CAD坐标</string>
+   </property>
+  </action>
+  <action name="import_BOM">
+   <property name="text">
+    <string>导入_BOM_整理_比对</string>
+   </property>
+  </action>
+  <action name="action3">
+   <property name="text">
+    <string>3</string>
+   </property>
+  </action>
+  <action name="action4">
+   <property name="text">
+    <string>4</string>
+   </property>
+  </action>
+  <action name="import_CAD_BOM">
+   <property name="text">
+    <string>导入_文件_CAD+BOM</string>
+   </property>
+  </action>
+  <action name="import_GC_CSV">
+   <property name="text">
+    <string>导入GC-PowerStation生成的_CSV</string>
+   </property>
+  </action>
+  <action name="FUJI_R">
+   <property name="text">
+    <string>FUJI</string>
+   </property>
+  </action>
+  <action name="Yamaha_R">
+   <property name="text">
+    <string>Yamaha</string>
+   </property>
+  </action>
+  <action name="JUKI_R">
+   <property name="text">
+    <string>JUKI</string>
+   </property>
+  </action>
+  <action name="GXH_R">
+   <property name="text">
+    <string>日立</string>
+   </property>
+  </action>
+  <action name="Samsung_R">
+   <property name="text">
+    <string>韩华三星</string>
+   </property>
+  </action>
+  <action name="Panasonic_R">
+   <property name="text">
+    <string>Panasonic</string>
+   </property>
+  </action>
+  <action name="NCMaater_R">
+   <property name="text">
+    <string>NCMaater文件</string>
+   </property>
+  </action>
+  <action name="Fuji_Flexa_E">
+   <property name="text">
+    <string>Fuji Flexa文件格式</string>
+   </property>
+  </action>
+  <action name="YAMAHA_E">
+   <property name="text">
+    <string>YAMAHA文件格式</string>
+   </property>
+  </action>
+  <action name="Samsung_E">
+   <property name="text">
+    <string>韩华三星文件格式</string>
+   </property>
+  </action>
+  <action name="JUKI_E">
+   <property name="text">
+    <string>JUKI文件格式</string>
+   </property>
+  </action>
+  <action name="Panasonnic_E">
+   <property name="text">
+    <string>Panasonnic文件格式</string>
+   </property>
+  </action>
+  <action name="GXH_E">
+   <property name="text">
+    <string>日立文件格式</string>
+   </property>
+  </action>
+  <action name="SONY_E">
+   <property name="text">
+    <string>SONY文件格式</string>
+   </property>
+  </action>
+  <action name="RongDe_E">
+   <property name="text">
+    <string>荣德文件格式</string>
+   </property>
+  </action>
+  <action name="HanChengTong_E">
+   <property name="text">
+    <string>汉诚通文件格式</string>
+   </property>
+  </action>
+  <action name="COORD10_E">
+   <property name="text">
+    <string>COORD10</string>
+   </property>
+  </action>
+  <action name="export_CAD">
+   <property name="text">
+    <string>导出坐标_txt</string>
+   </property>
+  </action>
+  <action name="export_CADBOM">
+   <property name="text">
+    <string>导出坐标BOM结果_CSV</string>
+   </property>
+  </action>
+  <action name="export_place_part_data">
+   <property name="text">
+    <string>导出贴装拼板坐标元件数据_xls</string>
+   </property>
+  </action>
+  <action name="Send_GC">
+   <property name="text">
+    <string>发送到GC2000辅助工具</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="Main_image.qrc"/>
+ </resources>
+ <connections/>
+</ui>

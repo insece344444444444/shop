@@ -9,7 +9,9 @@ class LedWindow(QMainWindow,LED):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.initUI()
 
+    def initUI(self):
         self.resetHeaders()
 
         self.selected_column = None

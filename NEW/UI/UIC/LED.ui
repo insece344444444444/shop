@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>990</width>
-    <height>725</height>
+    <width>866</width>
+    <height>675</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>LED</string>
+   <string>LED插花</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -56,23 +56,23 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>990</width>
+     <width>866</width>
      <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="file">
     <property name="title">
-     <string>输入</string>
+     <string>数据导入</string>
     </property>
     <addaction name="import_file"/>
    </widget>
    <widget class="QMenu" name="print">
     <property name="title">
-     <string>输出</string>
+     <string>输出文件</string>
     </property>
     <addaction name="export_file"/>
    </widget>
-   <widget class="QMenu" name="menu">
+   <widget class="QMenu" name="Transmit_Coordinate">
     <property name="title">
      <string>发送坐标</string>
     </property>
@@ -80,7 +80,7 @@
    </widget>
    <addaction name="file"/>
    <addaction name="print"/>
-   <addaction name="menu"/>
+   <addaction name="Transmit_Coordinate"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="import_file">

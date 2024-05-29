@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>XHT编程工具</string>
+   <string>香燐のSMT编程工具</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

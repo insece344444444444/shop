@@ -1,12 +1,16 @@
+from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 import sys
 from NEW.UI.UIC.LOGIN import Ui_Form as Main_Ui
 from qt_material import apply_stylesheet
-from  NEW.UI.APP.Led_Run import LedWindow
+from NEW.UI.APP.Led_Run import LedWindow
+from NEW.UI.APP.Cad_Bom_Run import CadWindow
+
 class MyWindow(QWidget,Main_Ui):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setWindowIcon(QIcon())
         self.setStyleSheet('''
         QPushButton{
             background-color:rgb(255, 255, 255);
@@ -19,14 +23,21 @@ class MyWindow(QWidget,Main_Ui):
         ''')
 
         self.LED.clicked.connect(self.bind)
+        self.BOM.clicked.connect(self.bind2)
 
     def bind(self):
-        self.subwindow=LedWindow()
-        self.subwindow.show()
-        self.subwindow.closeEvent = lambda event: self.show()
-        self.closeEvent = lambda event: self.subwindow.close()
+        self.subwindow_Led=LedWindow()
+        self.subwindow_Led.show()
+        self.subwindow_Led.closeEvent = lambda event: self.show()
+        self.closeEvent_L = lambda event: self.subwindow_Led.close()
         self.hide()  # 隐藏主窗口
 
+    def bind2(self):
+        self.subwindow_Cad=CadWindow()
+        self.subwindow_Cad.show()
+        self.subwindow_Cad.closeEvent = lambda event:self.show()
+        self.closeEvent_C = lambda  event: self.subwindow_Cad.close()
+        self.hide()
 if __name__ == "__main__":
     app=QApplication(sys.argv)
     apply_stylesheet(app, theme='light_pink.xml')

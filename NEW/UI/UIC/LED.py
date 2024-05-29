@@ -25,7 +25,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(990, 725)
+        MainWindow.resize(866, 675)
         self.import_file = QAction(MainWindow)
         self.import_file.setObjectName(u"import_file")
         self.export_file = QAction(MainWindow)
@@ -63,13 +63,13 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 990, 22))
+        self.menubar.setGeometry(QRect(0, 0, 866, 22))
         self.file = QMenu(self.menubar)
         self.file.setObjectName(u"file")
         self.print = QMenu(self.menubar)
         self.print.setObjectName(u"print")
-        self.menu = QMenu(self.menubar)
-        self.menu.setObjectName(u"menu")
+        self.Transmit_Coordinate = QMenu(self.menubar)
+        self.Transmit_Coordinate.setObjectName(u"Transmit_Coordinate")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -77,10 +77,10 @@ class Ui_MainWindow(object):
 
         self.menubar.addAction(self.file.menuAction())
         self.menubar.addAction(self.print.menuAction())
-        self.menubar.addAction(self.menu.menuAction())
+        self.menubar.addAction(self.Transmit_Coordinate.menuAction())
         self.file.addAction(self.import_file)
         self.print.addAction(self.export_file)
-        self.menu.addAction(self.actionPass)
+        self.Transmit_Coordinate.addAction(self.actionPass)
 
         self.retranslateUi(MainWindow)
         self.import_file.triggered.connect(MainWindow.import_csv)
@@ -90,14 +90,14 @@ class Ui_MainWindow(object):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"LED", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"LED\u63d2\u82b1", None))
         self.import_file.setText(QCoreApplication.translate("MainWindow", u"\u5bfc\u5165CAD\u5750\u6807", None))
         self.export_file.setText(QCoreApplication.translate("MainWindow", u"\u5bfc\u51faCAD", None))
         self.actionPass.setText(QCoreApplication.translate("MainWindow", u"Pass", None))
         self.SetHeader_btn.setText(QCoreApplication.translate("MainWindow", u"\u5b9a\u4e49\u8868\u5934", None))
         self.split_Part.setText(QCoreApplication.translate("MainWindow", u"\u7ad9\u4f4d\u6253\u6563", None))
-        self.file.setTitle(QCoreApplication.translate("MainWindow", u"\u8f93\u5165", None))
-        self.print.setTitle(QCoreApplication.translate("MainWindow", u"\u8f93\u51fa", None))
-        self.menu.setTitle(QCoreApplication.translate("MainWindow", u"\u53d1\u9001\u5750\u6807", None))
+        self.file.setTitle(QCoreApplication.translate("MainWindow", u"\u6570\u636e\u5bfc\u5165", None))
+        self.print.setTitle(QCoreApplication.translate("MainWindow", u"\u8f93\u51fa\u6587\u4ef6", None))
+        self.Transmit_Coordinate.setTitle(QCoreApplication.translate("MainWindow", u"\u53d1\u9001\u5750\u6807", None))
     # retranslateUi
 
