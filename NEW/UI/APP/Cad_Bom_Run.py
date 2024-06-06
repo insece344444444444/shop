@@ -1,32 +1,35 @@
 from PySide6.QtWidgets import *
-from NEW.UI.UIC.Cad_Bom import Ui_MainWindow as Cad
+from NEW.UI.UIC.CAD_BOM import Ui_MainWindow as Cad
+from NEW.UI.APP.Import_Cad_Run import ImportCadWindow
 class CadWindow(QMainWindow,Cad):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.initUI()
 
+        self.import_CAD.triggered.connect(self.bind_importcad)
+
     def initUI(self):
-        self.table.setColumnCount(8)
+        self.table_cadbom.setColumnCount(8)
         headers=['','序号','位号','X坐标','Y坐标','R角度','元件号码','物料描述']
         self.TB_combobox.addItems(['All','Top','Bot'])
 
-        self.table.setHorizontalHeaderLabels(headers)
-        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        self.table.horizontalHeader().setSectionResizeMode(0,QHeaderView.Fixed)
-        self.table.setColumnWidth(0,20)
+        self.table_cadbom.setHorizontalHeaderLabels(headers)
+        self.table_cadbom.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.table_cadbom.horizontalHeader().setSectionResizeMode(0,QHeaderView.Fixed)
+        self.table_cadbom.setColumnWidth(0,20)
         for col in range(1,6):
-            self.table.horizontalHeader().setSectionResizeMode(col,QHeaderView.Fixed)
-            self.table.setColumnWidth(col,90)
-        for row in range(self.table.rowCount()):
-            for col in range(self.table.columnCount()):
+            self.table_cadbom.horizontalHeader().setSectionResizeMode(col,QHeaderView.Fixed)
+            self.table_cadbom.setColumnWidth(col,90)
+        for row in range(self.table_cadbom.rowCount()):
+            for col in range(self.table_cadbom.columnCount()):
                 if col == 0:
                     item=QTableWidgetItem(f"Row {row+1}")
                     print(item)
                 else:
                     item=QTableWidgetItem(f"Item {row+1}-{col+1}")
                     print(item)
-                self.table.setItem(row,col,item)
+                self.table_cadbom.setItem(row,col,item)
 
         self.button_group = QButtonGroup(self)
         self.button_group.setExclusive(True)
@@ -83,3 +86,10 @@ class CadWindow(QMainWindow,Cad):
             border: 1px solid#cccccc;
             }
             """
+
+    def bind_importcad(self):
+        self.subwindow_importcad=ImportCadWindow()
+        self.subwindow_importcad.show()
+        self.subwindow_importcad.closeEvent = lambda event:self.show()
+        self.closeEvent_i=lambda  event: self.subwindow_importcad.close()
+        self.hide()

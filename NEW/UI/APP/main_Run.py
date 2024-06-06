@@ -1,4 +1,3 @@
-from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 import sys
 from NEW.UI.UIC.LOGIN import Ui_Form as Main_Ui
@@ -10,7 +9,6 @@ class MyWindow(QWidget,Main_Ui):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.setWindowIcon(QIcon())
         self.setStyleSheet('''
         QPushButton{
             background-color:rgb(255, 255, 255);
@@ -22,17 +20,17 @@ class MyWindow(QWidget,Main_Ui):
         }
         ''')
 
-        self.LED.clicked.connect(self.bind)
-        self.BOM.clicked.connect(self.bind2)
+        self.LED.clicked.connect(self.bind_led)
+        self.BOM.clicked.connect(self.bind2_cadbom)
 
-    def bind(self):
+    def bind_led(self):
         self.subwindow_Led=LedWindow()
         self.subwindow_Led.show()
         self.subwindow_Led.closeEvent = lambda event: self.show()
         self.closeEvent_L = lambda event: self.subwindow_Led.close()
         self.hide()  # 隐藏主窗口
 
-    def bind2(self):
+    def bind2_cadbom(self):
         self.subwindow_Cad=CadWindow()
         self.subwindow_Cad.show()
         self.subwindow_Cad.closeEvent = lambda event:self.show()
