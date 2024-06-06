@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'Cad_Bom.ui'
+## Form generated from reading UI file 'CAD_BOM.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.2.4
 ##
@@ -20,7 +20,6 @@ from PySide6.QtWidgets import (QApplication, QComboBox, QGridLayout, QHBoxLayout
     QHeaderView, QLabel, QMainWindow, QMenu,
     QMenuBar, QPushButton, QSizePolicy, QSpacerItem,
     QStatusBar, QTableWidget, QTableWidgetItem, QWidget)
-
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -112,10 +111,10 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addLayout(self.horizontalLayout, 0, 0, 1, 1)
 
-        self.table = QTableWidget(self.centralwidget)
-        self.table.setObjectName(u"table")
+        self.table_cadbom = QTableWidget(self.centralwidget)
+        self.table_cadbom.setObjectName(u"table_cadbom")
 
-        self.gridLayout.addWidget(self.table, 2, 0, 1, 1)
+        self.gridLayout.addWidget(self.table_cadbom, 2, 0, 1, 1)
 
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")

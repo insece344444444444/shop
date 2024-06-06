@@ -47,7 +47,7 @@
      </layout>
     </item>
     <item row="1" column="0">
-     <widget class="QTableWidget" name="table"/>
+     <widget class="QTableWidget" name="table_led"/>
     </item>
    </layout>
   </widget>

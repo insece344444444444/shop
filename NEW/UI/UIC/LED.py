@@ -55,10 +55,10 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addLayout(self.horizontalLayout, 0, 0, 1, 1)
 
-        self.table = QTableWidget(self.centralwidget)
-        self.table.setObjectName(u"table")
+        self.table_led = QTableWidget(self.centralwidget)
+        self.table_led.setObjectName(u"table_led")
 
-        self.gridLayout.addWidget(self.table, 1, 0, 1, 1)
+        self.gridLayout.addWidget(self.table_led, 1, 0, 1, 1)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)

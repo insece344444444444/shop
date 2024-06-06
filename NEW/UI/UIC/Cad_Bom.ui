@@ -47,7 +47,7 @@
      </layout>
     </item>
     <item row="2" column="0">
-     <widget class="QTableWidget" name="table"/>
+     <widget class="QTableWidget" name="table_cadbom"/>
     </item>
     <item row="2" column="1">
      <layout class="QHBoxLayout" name="horizontalLayout_3"/>
@@ -342,8 +342,6 @@
    </property>
   </action>
  </widget>
- <resources>
-  <include location="Main_image.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
