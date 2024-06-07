@@ -38,7 +38,7 @@ class MyWindow(QWidget,Main_Ui):
         self.hide()
 if __name__ == "__main__":
     app=QApplication(sys.argv)
-    apply_stylesheet(app, theme='light_pink.xml')
+    #apply_stylesheet(app, theme='light_pink.xml')
     win=MyWindow()
     win.show()
     sys.exit(app.exec())

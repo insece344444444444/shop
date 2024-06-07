@@ -134,7 +134,8 @@ class Table_Logic(QWidget):
         for col in range(table.columnCount()):
             item=table.item(row,col)
             if item is not None:
-                item.setBackground(Qt.GlobalColor.red)
+                item.setBackground(Qt.GlobalColor.yellow)
+                item.setForeground(Qt.GlobalColor.red)
 
 
 

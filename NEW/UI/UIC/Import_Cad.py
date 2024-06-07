@@ -16,8 +16,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QHeaderView,
-    QPushButton, QSizePolicy, QSpacerItem, QTableWidget,
-    QTableWidgetItem, QWidget)
+    QLabel, QPushButton, QSizePolicy, QSpacerItem,
+    QTableWidget, QTableWidgetItem, QWidget)
 
 class Ui_Cad_Data(object):
     def setupUi(self, Cad_Data):
@@ -65,6 +65,15 @@ class Ui_Cad_Data(object):
 
         self.horizontalLayout_2.addLayout(self.horizontalLayout)
 
+        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_2.addItem(self.horizontalSpacer_5)
+
+        self.repetition_label = QLabel(Cad_Data)
+        self.repetition_label.setObjectName(u"repetition_label")
+
+        self.horizontalLayout_2.addWidget(self.repetition_label)
+
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.horizontalLayout_2.addItem(self.horizontalSpacer)
@@ -89,5 +98,6 @@ class Ui_Cad_Data(object):
         self.SetHeader_BTN.setText(QCoreApplication.translate("Cad_Data", u"\u8bbe\u7f6e\u8868\u5934", None))
         self.Check_repetition_BTN.setText(QCoreApplication.translate("Cad_Data", u"\u68c0\u67e5\u91cd\u590d", None))
         self.Import_BTN.setText(QCoreApplication.translate("Cad_Data", u"\u786e\u5b9a\u5bfc\u5165", None))
+        self.repetition_label.setText("")
     # retranslateUi
 

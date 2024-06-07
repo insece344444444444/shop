@@ -9,6 +9,16 @@ class LedWindow(QMainWindow,LED,tb):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setStyleSheet('''
+                QPushButton{
+                    background-color:rgb(255, 255, 255);
+                    border-radius:10px;
+                }
+                QPushButton:hover{
+                    background-color:rgb(255, 192, 203);
+                    color:rgb(255, 255, 255);
+                }
+                ''')
 
         self.selected_column = None
 
