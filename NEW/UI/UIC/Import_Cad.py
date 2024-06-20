@@ -57,10 +57,10 @@ class Ui_Cad_Data(object):
 
         self.horizontalLayout.addItem(self.horizontalSpacer_4)
 
-        self.Import_BTN = QPushButton(Cad_Data)
-        self.Import_BTN.setObjectName(u"Import_BTN")
+        self.Export_BTN = QPushButton(Cad_Data)
+        self.Export_BTN.setObjectName(u"Export_BTN")
 
-        self.horizontalLayout.addWidget(self.Import_BTN)
+        self.horizontalLayout.addWidget(self.Export_BTN)
 
 
         self.horizontalLayout_2.addLayout(self.horizontalLayout)
@@ -97,7 +97,7 @@ class Ui_Cad_Data(object):
         self.OpenFile_BTN.setText(QCoreApplication.translate("Cad_Data", u"\u6253\u5f00\u6587\u4ef6", None))
         self.SetHeader_BTN.setText(QCoreApplication.translate("Cad_Data", u"\u8bbe\u7f6e\u8868\u5934", None))
         self.Check_repetition_BTN.setText(QCoreApplication.translate("Cad_Data", u"\u68c0\u67e5\u91cd\u590d", None))
-        self.Import_BTN.setText(QCoreApplication.translate("Cad_Data", u"\u786e\u5b9a\u5bfc\u5165", None))
+        self.Export_BTN.setText(QCoreApplication.translate("Cad_Data", u"\u786e\u5b9a\u5bfc\u5165", None))
         self.repetition_label.setText("")
     # retranslateUi
 

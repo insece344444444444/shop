@@ -1,0 +1,11 @@
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pipenv 
+pipenv shell
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pyinstaller
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple PyQt5 pyqt5-tools
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pyautogui
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple opencv-python
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple mss
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pywin32
+pip freeze > requirements.txt
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
+pyinstaller -D -w gc2000_angle_main.py -i FA.ico

@@ -79,7 +79,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="Import_BTN">
+        <widget class="QPushButton" name="Export_BTN">
          <property name="text">
           <string>确定导入</string>
          </property>

@@ -1,3 +1,4 @@
+from PySide6.QtCore import *
 from NEW.UI.UIC.Import_Cad import Ui_Cad_Data as Sub_Ui
 from PySide6.QtWidgets import *
 from PySide6.QtGui import *
@@ -25,10 +26,13 @@ class ImportCadWindow(Sub_Ui,tb):
         self.table_importcad.horizontalHeader().customContextMenuRequested.connect(self.showContextMenu)
         self.SetHeader_BTN.clicked.connect(self.ImportCad_SetHeader_Run)
         self.Check_repetition_BTN.clicked.connect(self.Check_repetition_Run)
+        self.Export_BTN.clicked.connect(self.ExportData)
+
     def open(self):
         data=self.openfile()
         self.addTableData(data,self.table_importcad)
         self.resetHeaders()
+        self.repetition_label.setText("")
 
     def showContextMenu(self,pos):
         if not hasattr(self, 'context_menu'):
@@ -73,3 +77,6 @@ class ImportCadWindow(Sub_Ui,tb):
                 row=item.row()
                 self.highlight_row(row,self.table_importcad)
             self.repetition_label.setText(f"发现{i}....等位号重复")
+
+    def ExportData(self):
+        print('测试')
