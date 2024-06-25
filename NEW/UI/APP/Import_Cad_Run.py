@@ -76,7 +76,11 @@ class ImportCadWindow(Sub_Ui,tb):
             for item in result:
                 row=item.row()
                 self.highlight_row(row,self.table_importcad)
-            self.repetition_label.setText(f"发现{i}....等位号重复")
+            self.repetition_label.setText(f"坐标数据中发现：{i}....等位号重复")
 
     def ExportData(self):
-        print('测试')
+        lebel_text=self.repetition_label.text()
+        if lebel_text == "":
+            print("空")
+        else:
+            QMessageBox.information(self,'提示','请检查位号是否有重复')

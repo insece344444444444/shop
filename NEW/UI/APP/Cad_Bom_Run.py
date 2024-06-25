@@ -93,3 +93,6 @@ class CadWindow(QMainWindow,Cad):
         self.subwindow_importcad.closeEvent = lambda event:self.show()
         self.closeEvent_i=lambda  event: self.subwindow_importcad.close()
         self.hide()
+
+    def import_cad_data(self):
+        print('测试信号')

@@ -1,6 +1,8 @@
 import pyautogui
 import time
-from utils.get_gc_api import *
+from NEW.GC_code8_calcangle.utils.get_gc_api import *
+from GC_code8_calcangle.utils.get_gc_api import get_gcapi_name, get_gcapi_part, get_gcapi_angle
+
 
 def dg_auto_mun(bmp,name,part,ang,hwnd,t):
     pyautogui.PAUSE = t
