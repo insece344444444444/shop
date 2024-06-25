@@ -24,7 +24,8 @@ class LedWindow(QMainWindow,LED,tb):
 
         self.resetHeaders()
         self.table_led.horizontalHeader().setContextMenuPolicy(Qt.CustomContextMenu)
-        self.table_led.horizontalHeader().customContextMenuRequested.connect(self.showContextMenu)
+        self.table_led.horizontalHeader().setContextMenuPolicy(Qt.DefaultContextMenu)
+        self.table_led.horizontalHeader().sectionClicked.connect(self.showContextMenu)
 
         self.split_Part.clicked.connect(self.PartRandom)
         self.split_Part.setEnabled(False)
@@ -54,16 +55,15 @@ class LedWindow(QMainWindow,LED,tb):
         self.action_Reset.triggered.connect(self.resetHeaders)
 
 
-    def showContextMenu(self,pos):
+    def showContextMenu(self,index):
         if not hasattr(self,'context_menu'):
             self.context()
-        header=self.table_led.horizontalHeader()
-        index=header.logicalIndexAt(pos)
         if index != self.selected_column:
-            self.clearColumnHighlight(self.table_led,self.selected_column)
-            self.selected_column=index
-            self.highlightColumn(index,self.table_led)
-        self.context_menu.exec(self.table_led.mapToGlobal(pos))
+            self.clearColumnHighlight(self.table_led, self.selected_column)
+            self.selected_column = index
+            self.highlightColumn(index, self.table_led)
+        cursor_position = QCursor.pos()  # 获取当前鼠标的位置
+        self.context_menu.exec(cursor_position)
 
 
     def resetHeaders(self):

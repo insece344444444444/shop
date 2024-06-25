@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import *
 from NEW.UI.UIC.CAD_BOM import Ui_MainWindow as Cad
-from NEW.UI.APP.Import_Cad_Run import ImportCadWindow
-class CadWindow(QMainWindow,Cad):
+from NEW.UI.APP.Import_Cad_Run import ImportCadWindow as ImportCad
+class CadWindow(QMainWindow,Cad,ImportCad):
     def __init__(self):
         super().__init__()
         self.setupUi(self)

@@ -4,6 +4,7 @@ from PySide6.QtWidgets import *
 from PySide6.QtGui import *
 from NEW.UI.APP.Table_logic import Table_Logic as tb
 class ImportCadWindow(Sub_Ui,tb):
+    mergeCompleted = Signal(list)
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -23,7 +24,8 @@ class ImportCadWindow(Sub_Ui,tb):
         self.resetHeaders()
         self.OpenFile_BTN.clicked.connect(self.open)
         self.table_importcad.horizontalHeader().setContextMenuPolicy(Qt.CustomContextMenu)
-        self.table_importcad.horizontalHeader().customContextMenuRequested.connect(self.showContextMenu)
+        self.table_importcad.horizontalHeader().setContextMenuPolicy(Qt.DefaultContextMenu)
+        self.table_importcad.horizontalHeader().sectionClicked.connect(self.showContextMenu)
         self.SetHeader_BTN.clicked.connect(self.ImportCad_SetHeader_Run)
         self.Check_repetition_BTN.clicked.connect(self.Check_repetition_Run)
         self.Export_BTN.clicked.connect(self.ExportData)
@@ -34,16 +36,15 @@ class ImportCadWindow(Sub_Ui,tb):
         self.resetHeaders()
         self.repetition_label.setText("")
 
-    def showContextMenu(self,pos):
+    def showContextMenu(self, index):
         if not hasattr(self, 'context_menu'):
             self.context()
-        header = self.table_importcad.horizontalHeader()
-        index = header.logicalIndexAt(pos)
         if index != self.selected_column:
             self.clearColumnHighlight(self.table_importcad, self.selected_column)
             self.selected_column = index
             self.highlightColumn(index, self.table_importcad)
-        self.context_menu.exec(self.table_importcad.mapToGlobal(pos))
+        cursor_position = QCursor.pos()  # 获取当前鼠标的位置
+        self.context_menu.exec(cursor_position)
 
     def context(self):
         self.context_menu = QMenu(self)
