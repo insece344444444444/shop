@@ -38,8 +38,8 @@ class MyWindow(QWidget,Main_Ui):
         self.closeEvent_C = lambda  event: self.subwindow_Cad.close()
         self.hide()
 if __name__ == "__main__":
-    app=QApplication(sys.argv)
-    #apply_stylesheet(app, theme='light_pink.xml')
-    win=MyWindow()
-    win.show()
-    sys.exit(app.exec())
+    app=QApplication(sys.argv)#创建应用
+    #apply_stylesheet(app, theme='light_pink.xml')#设置主题
+    win=MyWindow()#创建窗口
+    win.show()#显示窗口
+    sys.exit(app.exec())#运行应用

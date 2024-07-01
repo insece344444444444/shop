@@ -75,7 +75,7 @@ class CadWindow(QWidget):#创建一个类，继承QWidget类
         # 主窗口关闭时子窗口也关闭
         self.closeEvent = lambda event: self.subwindow.close()
         self.hide()  # 隐藏主窗口
-    def displayMergedData(self,data_list,decpmpose):
+    def displayMergedData(self,data_list,decpmpose):#这个函数名的中文意思是显示合并的数据
 
         cad = {item[0]: item[1:] for item in data_list}  # 将data_list中的第一列作为key,第二列到最后一列作为value
         bom = {item[2]: item[1] for item in decpmpose}  # 将decpmpose中的第三列作为key,第二列作为value
